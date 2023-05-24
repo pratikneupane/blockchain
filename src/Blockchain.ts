@@ -1,5 +1,5 @@
 import Block from "./Block";
-import { cryptoHash } from "./utils/hash";
+import { cryptoHash } from "./utils/generateHash";
 
 class Blockchain {
   chain: Block[];
@@ -13,15 +13,13 @@ class Blockchain {
       data,
     });
     this.chain.push(newBlock);
-  } 
+  }
 
   replaceChain(chain: Block[]) {
     if (chain.length <= this.chain.length) {
-      console.error("The incoming chain must be longer");
       return;
     }
     if (!Blockchain.isValidChain(chain)) {
-      console.error("The incoming chain must be valid");
       return;
     }
     console.log("Replacing Chain with", chain);
@@ -30,22 +28,18 @@ class Blockchain {
 
   static isValidChain(chain: Block[]) {
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
-      console.log("false in genesis");
       return false;
     }
 
     for (let i = 1; i < chain.length; i++) {
-      const { timestamp, previousHash, hash, data } = chain[i];
+      const { timestamp, previousHash, hash, nonce, difficulty, data } =
+        chain[i];
       const actualPreviousHash = chain[i - 1].hash;
       if (previousHash !== actualPreviousHash) {
-        console.log("false in previousHash");
         return false;
       }
-      const validatedHash = cryptoHash(timestamp, previousHash, data);
+      const validatedHash = cryptoHash(timestamp, previousHash, nonce, difficulty, data);
       if (hash !== validatedHash) {
-        console.log("false in hash");
-        console.log(hash);
-        console.log(validatedHash);
         return false;
       }
       return true;

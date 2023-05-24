@@ -1,12 +1,13 @@
-import { formatDate } from "./utils/dateformat";
 import GENESIS_DATA from "./utils/genesis";
-import { cryptoHash } from "./utils/hash";
+import { cryptoHash } from "./utils/generateHash";
 
 type ConstructorArgs = {
   timestamp: string | number | Date;
   previousHash: string;
   hash: string;
   data: any;
+  nonce: number;
+  difficulty: number;
 };
 
 class Block {
@@ -14,13 +15,17 @@ class Block {
   previousHash: string;
   hash: string;
   data: any;
-  
+  nonce: number;
+  difficulty: number;
+
   constructor(args: ConstructorArgs) {
-    const { timestamp, previousHash, hash, data } = args;
+    const { timestamp, previousHash, hash, data, nonce, difficulty } = args;
     this.timestamp = timestamp;
     this.previousHash = previousHash;
     this.hash = hash;
     this.data = data;
+    this.nonce = nonce;
+    this.difficulty = difficulty;
   }
 
   static genesis() {
@@ -33,14 +38,23 @@ class Block {
     previousBlock: Block;
     data: any;
   }) {
-    const timestamp = formatDate(Date.now());
+    let hash, timestamp;
     const previousHash = previousBlock.hash;
-    const hash = cryptoHash(timestamp, previousHash, data);
+    const { difficulty } = previousBlock;
+    let nonce = 0;
+    do {
+      nonce++;
+      timestamp = Date.now();
+      hash = cryptoHash(timestamp, previousHash, nonce, difficulty, data);
+    } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
+
     return new this({
       timestamp,
       previousHash,
       hash,
       data,
+      nonce,
+      difficulty,
     });
   }
 }
