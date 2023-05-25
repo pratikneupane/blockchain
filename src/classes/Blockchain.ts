@@ -18,12 +18,12 @@ class Blockchain {
   replaceChain(chain: Block[]) {
     if (chain.length <= this.chain.length) {
       return;
-    }
-    if (!Blockchain.isValidChain(chain)) {
+    } else if (!Blockchain.isValidChain(chain)) {
       return;
+    } else {
+      console.log("Replacing Chain with", chain);
+      this.chain = chain;
     }
-    console.log("Replacing Chain with", chain);
-    this.chain = chain;
   }
 
   static isValidChain(chain: Block[]) {
@@ -34,16 +34,22 @@ class Blockchain {
     for (let i = 1; i < chain.length; i++) {
       const { timestamp, previousHash, hash, nonce, difficulty, data } =
         chain[i];
+
       const actualPreviousHash = chain[i - 1].hash;
-      if (previousHash !== actualPreviousHash) {
-        return false;
-      }
-      const validatedHash = cryptoHash(timestamp, previousHash, nonce, difficulty, data);
-      if (hash !== validatedHash) {
-        return false;
-      }
-      return true;
+
+      if (previousHash !== actualPreviousHash) return false;
+
+      const validatedHash = cryptoHash(
+        timestamp,
+        previousHash,
+        nonce,
+        difficulty,
+        data
+      );
+
+      if (hash !== validatedHash) return false;
     }
+    return true;
   }
 }
 

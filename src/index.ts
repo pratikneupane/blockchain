@@ -19,6 +19,8 @@ app.post("/api/mine", (req: Request, res: Response) => {
   res.json(blockchain.chain);
 });
 
+
+
 app.listen(DEFAULT_PORT, () => {
   console.log(`🚀[app] ${ROOT_NODE_ADDRESS}`);
 });
