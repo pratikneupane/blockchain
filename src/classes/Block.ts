@@ -1,5 +1,5 @@
-import GENESIS_DATA from "./utils/genesis";
-import { cryptoHash } from "./utils/generateHash";
+import GENESIS_DATA from "../utils/genesis";
+import { cryptoHash } from "../utils/generateHash";
 
 type ConstructorArgs = {
   timestamp: string | number | Date;

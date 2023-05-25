@@ -166,5 +166,4 @@ class Blake2b {
   }
 }
 
-
 export default Blake2b;

@@ -1,5 +1,5 @@
 import Block from "./Block";
-import { cryptoHash } from "./utils/generateHash";
+import { cryptoHash } from "../utils/generateHash";
 
 class Blockchain {
   chain: Block[];
