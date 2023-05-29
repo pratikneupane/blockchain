@@ -1,5 +1,5 @@
-import Block from '../classes/Block';
-import { cryptoHash } from '../utils/generateHash';
+import Block from '../src/classes/Block';
+import { cryptoHash } from '../src/utils/generateHash';
 
 describe('Block', () => {
   let genesisBlock: Block;

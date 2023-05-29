@@ -1,4 +1,4 @@
-import Blake2b from '../utils/blake2b';
+import Blake2b from '../src/utils/blake2b';
 
 describe('Blake2b', () => {
   let blake2b: Blake2b;

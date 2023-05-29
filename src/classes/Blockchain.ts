@@ -17,8 +17,10 @@ class Blockchain {
 
   replaceChain(chain: Block[]) {
     if (chain.length <= this.chain.length) {
+      console.log("Received chain is not longer than the current chain.");
       return;
     } else if (!Blockchain.isValidChain(chain)) {
+      console.log("Received chain is invalid.");
       return;
     } else {
       console.log("Replacing Chain with", chain);

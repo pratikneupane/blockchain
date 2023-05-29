@@ -1,5 +1,5 @@
-import Blockchain from "../classes/Blockchain";
-import Block from "../classes/Block";
+import Blockchain from "../src/classes/Blockchain";
+import Block from "../src/classes/Block";
 
 describe("Blockchain", () => {
   let blockchain: Blockchain;
