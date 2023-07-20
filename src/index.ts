@@ -1,6 +1,6 @@
 import Blockchain from "./classes/Blockchain";
 import express, { Request, Response } from "express";
-// import PubSub from "./classes/PubSub";
+import PubSub from "./classes/PubSub";
 import request from "request";
 import loginrouter from './routes/login.routes'
 import signuprouter from './routes/signup.routes'
@@ -9,9 +9,9 @@ import connectDB from "./utils/connectDb";
 const app = express();
 connectDB();
 const blockchain = new Blockchain();
-// const pubsub = new PubSub(blockchain);
+const pubsub = new PubSub(blockchain);
 
-// setTimeout(() => pubsub.broadcastBlockchain(), 2000);
+setTimeout(() => pubsub.broadcastBlockchain(), 2000);
 
 app.use(express.json());
 
@@ -20,18 +20,18 @@ const DEFAULT_PORT = 3000;
 app.use('/login', loginrouter);
 app.use('/signup', signuprouter);
 
-app.get("/api/blocks", (req: Request, res: Response) => {
-  res.json(blockchain.chain);
-});
+// app.get("/api/blocks", (req: Request, res: Response) => {
+//   res.json(blockchain.chain);
+// });
 
-app.post("/api/mine", (req: Request, res: Response) => {
-  const { data } = req.body;
-  blockchain.addBlock(data);
-  // pubsub.broadcastBlockchain();
-  // console.log("New block added");
-  // console.log(blockchain.chain);
-  res.json(blockchain.chain);
-});
+// app.post("/api/mine", (req: Request, res: Response) => {
+//   const { data } = req.body;
+//   blockchain.addBlock(data);
+//   pubsub.broadcastBlockchain();
+//   console.log("New block added");
+//   console.log(blockchain.chain);
+//   res.json(blockchain.chain);
+// });
 
 let PEER_PORT: number | undefined;
 
