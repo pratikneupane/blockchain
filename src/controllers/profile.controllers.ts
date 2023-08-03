@@ -10,5 +10,4 @@ export const profileController = async (req: Request, res: Response) => {
         console.log(err);
         res.json({"message": "error"}).status(500)
     }
-
 }
