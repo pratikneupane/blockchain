@@ -16,10 +16,6 @@ export const verifyUser = async (req: Request, res: Response) => {
       : user.password !== hashPassword(password)
       ? res.json({ message: "you entered wrong password" }).status(401)
       : res
-          .json({
-            message: "you are logged in",
-            token: jwt.sign({ email: user.email , id: user._id}, process.env.JWT_SECRET! as string),
-          })
           .status(200);
   } catch (err) {
     console.log(err);
