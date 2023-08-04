@@ -5,7 +5,8 @@ import cors from "cors";
 import request from "request";
 import loginrouter from './routes/login.routes'
 import signuprouter from './routes/signup.routes'
-import testrouter from './routes/profile.routes'
+import addKycRoute from './routes/addkyc.routes'
+import getkycRoute from './routes/getkyc.routes'
 import connectDB from "./utils/connectDb";
 
 const app = express();
@@ -18,11 +19,12 @@ setTimeout(() => pubsub.broadcastBlockchain(), 2000);
 app.use(express.json());
 app.use(cors());
 
-const DEFAULT_PORT = 3000;
+const DEFAULT_PORT = 3001;
 
 app.use('/login', loginrouter);
 app.use('/signup', signuprouter);
-app.use('/test', testrouter)
+app.use('/addkyc' ,  addKycRoute);
+app.use('/getkyc' , getkycRoute)
 
 app.get("/api/blocks", (req: Request, res: Response) => {
   res.json(blockchain.chain);
