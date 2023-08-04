@@ -1,4 +1,5 @@
 module.exports = {
+    maxConcurrency: 2,
     preset: 'ts-jest',
     testEnvironment: 'node',
     roots: ['<rootDir>'],
