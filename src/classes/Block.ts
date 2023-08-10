@@ -1,11 +1,12 @@
 import GENESIS_DATA from "../utils/genesis";
 import { cryptoHash } from "../utils/generateHash";
+import type {UserRegData} from "../index"
 
 type ConstructorArgs = {
   timestamp: string | number | Date;
   previousHash: string;
   hash: string;
-  data: any;
+  data: UserRegData | never[] | String;
   nonce: number;
   difficulty: number;
 };
@@ -14,7 +15,7 @@ class Block {
   timestamp: string | number | Date;
   previousHash: string;
   hash: string;
-  data: any;
+  data: UserRegData | never[] | String;
   nonce: number;
   difficulty: number;
 
@@ -48,11 +49,13 @@ class Block {
       hash = cryptoHash(timestamp, previousHash, nonce, difficulty, data);
     } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
 
+    const stringData = JSON.stringify(data)
+
     return new this({
       timestamp,
       previousHash,
       hash,
-      data,
+      data: stringData,
       nonce,
       difficulty,
     });

@@ -15,8 +15,7 @@ export const verifyUser = async (req: Request, res: Response) => {
       ? res.status(404).json({ message: "User not found" })
       : user.password !== hashPassword(password)
       ? res.json({ message: "you entered wrong password" }).status(401)
-      : res
-          .status(200);
+      : res.status(200);
   } catch (err) {
     console.log(err);
     return res.json({ message: "Internal Server Error" }).status(500);

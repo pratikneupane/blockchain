@@ -8,14 +8,16 @@ export const registerUser = async (req: Request, res: Response) => {
     const { email, password, firstname, lastname } = body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.json({ message: "user with this email already exist" }).status(400);
+      return res
+        .json({ message: "user with this email already exist" })
+        .status(400);
     } else {
-        const hashedPassword = hashPassword(password);
+      const hashedPassword = hashPassword(password);
       const newUser = new User({
         firstname,
         lastname,
         email,
-        password:hashedPassword,
+        password: hashedPassword,
       });
       newUser.save();
       return res.json({ message: "success" }).status(200);
