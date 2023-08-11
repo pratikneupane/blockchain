@@ -12,9 +12,9 @@ import connectDB from "./utils/connectDb";
 const app = express();
 connectDB();
 const blockchain = new Blockchain();
-const pubsub = new PubSub(blockchain);
+// const pubsub = new PubSub(blockchain);
 
-setTimeout(() => pubsub.broadcastBlockchain(), 2000);
+// setTimeout(() => pubsub.broadcastBlockchain(), 2000);
 
 app.use(express.json());
 app.use(cors());
@@ -33,7 +33,7 @@ app.get("/api/blocks", (req: Request, res: Response) => {
 app.post("/api/mine", (req: Request, res: Response) => {
   const { data } = req.body;
   blockchain.addBlock(data);
-  pubsub.broadcastBlockchain();
+  // pubsub.broadcastBlockchain();
   // console.log("New block added");
   // console.log(blockchain.chain);
   res.json(blockchain.chain);
