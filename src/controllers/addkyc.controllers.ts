@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
+import { addNewBlockOnUserRegistration } from "../index";
 
 export const addKycController = async (req: Request, res: Response) => {
   const body = req.body;
+  console.log(body);
   const {
     address,
     citizenshipImage,
@@ -11,7 +13,7 @@ export const addKycController = async (req: Request, res: Response) => {
     lastname,
     phonenumber,
     profilepic,
-    user
+    user,
   } = body;
   if (
     !firstname ||
@@ -25,7 +27,18 @@ export const addKycController = async (req: Request, res: Response) => {
   ) {
     return res.json({ message: "fill the form" }).status(400);
   } else {
-    console.log(user);
+    const {id} = user;
+    addNewBlockOnUserRegistration({
+      firstname,
+      lastname,
+      dob,
+      email,
+      phonenumber,
+      address,
+      citizenshipImage,
+      profilepic,
+      id,
+    });
     res.json({ message: "success" }).status(200);
   }
 };

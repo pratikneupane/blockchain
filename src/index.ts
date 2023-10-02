@@ -3,11 +3,12 @@ import express, { Request, Response } from "express";
 import PubSub from "./classes/PubSub";
 import cors from "cors";
 import request from "request";
-import loginrouter from './routes/login.routes'
-import signuprouter from './routes/signup.routes'
-import addKycRoute from './routes/addkyc.routes'
-import getkycRoute from './routes/getkyc.routes'
+import loginrouter from "./routes/login.routes";
+import signuprouter from "./routes/signup.routes";
+import addKycRoute from "./routes/addkyc.routes";
+import getkycRoute from "./routes/getkyc.routes";
 import connectDB from "./utils/connectDb";
+const bodyParser = require("body-parser");
 
 const app = express();
 connectDB();
@@ -18,26 +19,36 @@ setTimeout(() => pubsub.broadcastBlockchain(), 2000);
 
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const DEFAULT_PORT = 3001;
 
-app.use('/login', loginrouter);
-app.use('/signup', signuprouter);
-app.use('/addkyc' ,  addKycRoute);
-app.use('/getkyc' , getkycRoute)
+app.use("/login", loginrouter);
+app.use("/signup", signuprouter);
+app.use("/addkyc", addKycRoute);
+app.use("/getkyc", getkycRoute);
 
 app.get("/api/blocks", (req: Request, res: Response) => {
   res.json(blockchain.chain);
 });
 
-app.post("/api/mine", (req: Request, res: Response) => {
-  const { data } = req.body;
-  blockchain.addBlock(data);
+export type UserRegData = {
+  firstname: String;
+  lastname: String;
+  dob: String;
+  email: String;
+  phonenumber: String;
+  address: String;
+  citizenshipImage: any;
+  profilepic: any;
+  id: number;
+};
+export const addNewBlockOnUserRegistration = (data: UserRegData) => {
+  const stringifiedData = JSON.stringify(data);
+  blockchain.addBlock(stringifiedData);
   pubsub.broadcastBlockchain();
-  // console.log("New block added");
-  // console.log(blockchain.chain);
-  res.json(blockchain.chain);
-});
+  console.log(blockchain);
+};
 
 let PEER_PORT: number | undefined;
 
