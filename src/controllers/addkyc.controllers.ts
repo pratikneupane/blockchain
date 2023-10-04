@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { addNewBlockOnUserRegistration } from "../index";
+import User from "../models/User.model"
 
 export const addKycController = async (req: Request, res: Response) => {
   const body = req.body;
@@ -27,7 +28,7 @@ export const addKycController = async (req: Request, res: Response) => {
     return res.json({ message: "fill the form" }).status(400);
   } else {
     const {id} = user;
-    addNewBlockOnUserRegistration({
+    const hash = addNewBlockOnUserRegistration({
       firstname,
       lastname,
       dob,
@@ -38,6 +39,16 @@ export const addKycController = async (req: Request, res: Response) => {
       profilePictureUrl,
       id,
     });
-    res.json({ message: "success" }).status(200);
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: id },
+      { hash: hash },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    };
+
+    res.json({ message: updatedUser }).status(200);
   }
 };

@@ -44,11 +44,11 @@ export type UserRegData = {
   id: number;
 };
 export const addNewBlockOnUserRegistration = (data: UserRegData) => {
-  console.log("Blockadd Data", data)
   const stringifiedData = JSON.stringify(data);
-  blockchain.addBlock(stringifiedData);
+  const hash = blockchain.addBlock(stringifiedData);
   pubsub.broadcastBlockchain();
   console.log(blockchain);
+  return hash;
 };
 
 let PEER_PORT: number | undefined;
