@@ -3,16 +3,15 @@ import { addNewBlockOnUserRegistration } from "../index";
 
 export const addKycController = async (req: Request, res: Response) => {
   const body = req.body;
-  console.log(body);
   const {
     address,
-    citizenshipImage,
+    citizenshipImageUrl,
     dob,
     email,
     firstname,
     lastname,
     phonenumber,
-    profilepic,
+    profilePictureUrl,
     user,
   } = body;
   if (
@@ -22,8 +21,8 @@ export const addKycController = async (req: Request, res: Response) => {
     !email ||
     !phonenumber ||
     !address ||
-    !citizenshipImage ||
-    !profilepic
+    !citizenshipImageUrl ||
+    !profilePictureUrl
   ) {
     return res.json({ message: "fill the form" }).status(400);
   } else {
@@ -35,8 +34,8 @@ export const addKycController = async (req: Request, res: Response) => {
       email,
       phonenumber,
       address,
-      citizenshipImage,
-      profilepic,
+      citizenshipImageUrl,
+      profilePictureUrl,
       id,
     });
     res.json({ message: "success" }).status(200);

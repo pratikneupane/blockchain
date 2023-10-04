@@ -39,11 +39,12 @@ export type UserRegData = {
   email: String;
   phonenumber: String;
   address: String;
-  citizenshipImage: any;
-  profilepic: any;
+  citizenshipImageUrl: string;
+  profilePictureUrl: string;
   id: number;
 };
 export const addNewBlockOnUserRegistration = (data: UserRegData) => {
+  console.log("Blockadd Data", data)
   const stringifiedData = JSON.stringify(data);
   blockchain.addBlock(stringifiedData);
   pubsub.broadcastBlockchain();
