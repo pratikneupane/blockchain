@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { addNewBlockOnUserRegistration } from "../index";
-import User from "../models/User.model"
+import User from "../models/User.model";
 
 export const addKycController = async (req: Request, res: Response) => {
   const body = req.body;
@@ -27,7 +27,7 @@ export const addKycController = async (req: Request, res: Response) => {
   ) {
     return res.json({ message: "fill the form" }).status(400);
   } else {
-    const {id} = user;
+    const { id } = user;
     const hash = addNewBlockOnUserRegistration({
       firstname,
       lastname,
@@ -47,7 +47,7 @@ export const addKycController = async (req: Request, res: Response) => {
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
-    };
+    }
 
     res.json({ message: updatedUser }).status(200);
   }

@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import Admin from "../models/Admin.model";
 import hashPassword from "./passwordhash";
 
@@ -14,9 +13,8 @@ export const registerAdmin = async () => {
 
     await admin.save();
 
-   console.log("admin registerd succesfullly")
+    console.log("admin registerd succesfullly");
   } catch (err) {
     console.log(err);
-    
   }
 };

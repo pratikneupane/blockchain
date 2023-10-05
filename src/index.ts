@@ -7,15 +7,16 @@ import loginrouter from "./routes/login.routes";
 import signuprouter from "./routes/signup.routes";
 import addKycRoute from "./routes/addkyc.routes";
 import getkycRoute from "./routes/getkyc.routes";
-import adminsignrouter from "./routes/adminSignin.routes";
+import adminSignRoute from "./routes/adminSignin.routes";
+import getAllBlocksRoute from "./routes/getAllBlocks.routes";
 import connectDB from "./utils/connectDb";
 const bodyParser = require("body-parser");
-import { registerAdmin } from "./utils/adminsignup";
+import { registerAdmin } from "./utils/adminSignup";
 
 const app = express();
 connectDB();
 //registerAdmin();
-const blockchain = new Blockchain();
+export const blockchain = new Blockchain();
 const pubsub = new PubSub(blockchain);
 
 setTimeout(() => pubsub.broadcastBlockchain(), 2000);
@@ -30,7 +31,8 @@ app.use("/login", loginrouter);
 app.use("/signup", signuprouter);
 app.use("/addkyc", addKycRoute);
 app.use("/getkyc", getkycRoute);
-app.use("/adminsign", adminsignrouter);
+app.use("/admin/signin", adminSignRoute);
+app.use("/admin/getallblocks", getAllBlocksRoute)
 
 
 app.get("/api/blocks", (req: Request, res: Response) => {
@@ -49,8 +51,7 @@ export type UserRegData = {
   id: number;
 };
 export const addNewBlockOnUserRegistration = (data: UserRegData) => {
-  const stringifiedData = JSON.stringify(data);
-  const hash = blockchain.addBlock(stringifiedData);
+  const hash = blockchain.addBlock(data);
   pubsub.broadcastBlockchain();
   console.log(blockchain);
   return hash;
