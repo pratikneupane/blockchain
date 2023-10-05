@@ -7,11 +7,14 @@ import loginrouter from "./routes/login.routes";
 import signuprouter from "./routes/signup.routes";
 import addKycRoute from "./routes/addkyc.routes";
 import getkycRoute from "./routes/getkyc.routes";
+import adminsignrouter from "./routes/adminSignin.routes";
 import connectDB from "./utils/connectDb";
 const bodyParser = require("body-parser");
+import { registerAdmin } from "./utils/adminsignup";
 
 const app = express();
 connectDB();
+//registerAdmin();
 const blockchain = new Blockchain();
 const pubsub = new PubSub(blockchain);
 
@@ -27,6 +30,8 @@ app.use("/login", loginrouter);
 app.use("/signup", signuprouter);
 app.use("/addkyc", addKycRoute);
 app.use("/getkyc", getkycRoute);
+app.use("/adminsign", adminsignrouter);
+
 
 app.get("/api/blocks", (req: Request, res: Response) => {
   res.json(blockchain.chain);
