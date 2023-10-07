@@ -8,7 +8,7 @@ export const getkycController = (req: Request, res: Response) => {
   }
   for (const block of blockchain.chain) {
     if (block.hash === hash) {
-      return res.status(200).json({ data: block.data });
+      return res.status(200).json({ message: ' success', data: block.data });
     }
   }
   return res.status(404).json({ error: "Block not found" });

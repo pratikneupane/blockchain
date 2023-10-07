@@ -24,6 +24,7 @@ export const verifyUser = async (req: Request, res: Response) => {
               { email: user.email, id: user._id },
               process.env.JWT_SECRET!
             ),
+            hash: user.hash
           });
   } catch (err) {
     console.log(err);

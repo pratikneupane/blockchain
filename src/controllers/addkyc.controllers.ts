@@ -45,10 +45,12 @@ export const addKycController = async (req: Request, res: Response) => {
       { new: true }
     );
 
+    console.log(updatedUser)
+
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json({ message: updatedUser }).status(200);
+    res.json({ message: updatedUser , success: true }).status(200);
   }
 };
