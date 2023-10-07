@@ -1,7 +1,8 @@
+import verifyToken from "src/middleware/auth";
 import { getAllBlocksController } from "../controllers/getAllBlocks.controllers";
 import { Router } from "express";
 const router = Router();
 
-router.get("/", getAllBlocksController)
+router.get("/", verifyToken, getAllBlocksController)
 
 export default router;

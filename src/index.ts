@@ -9,6 +9,7 @@ import addKycRoute from "./routes/addkyc.routes";
 import getkycRoute from "./routes/getkyc.routes";
 import adminSignRoute from "./routes/adminSignin.routes";
 import getAllBlocksRoute from "./routes/getAllBlocks.routes";
+import verifyBlockRoute from "./routes/verifyBlock.routes";
 import connectDB from "./utils/connectDb";
 const bodyParser = require("body-parser");
 import { registerAdmin } from "./utils/adminSignup";
@@ -32,7 +33,8 @@ app.use("/signup", signuprouter);
 app.use("/addkyc", addKycRoute);
 app.use("/getkyc", getkycRoute);
 app.use("/admin/signin", adminSignRoute);
-app.use("/admin/getallblocks", getAllBlocksRoute)
+app.use("/admin/getallblocks", getAllBlocksRoute);
+app.use('/admin/verifyblock', verifyBlockRoute);
 
 
 app.get("/api/blocks", (req: Request, res: Response) => {
