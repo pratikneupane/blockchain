@@ -17,6 +17,7 @@ class Block {
   data: any;
   nonce: number;
   difficulty: number;
+  verified: Boolean = false;
 
   constructor(args: ConstructorArgs) {
     const { timestamp, previousHash, hash, data, nonce, difficulty } = args;
@@ -57,6 +58,11 @@ class Block {
       nonce,
       difficulty,
     });
+  }
+
+  verifyBlock() {
+    this.verified = true;
+    return this.verified;
   }
 }
 

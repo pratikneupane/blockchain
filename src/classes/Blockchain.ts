@@ -54,6 +54,15 @@ class Blockchain {
     }
     return true;
   }
+
+  findOneByHash(hashToFind: String) {
+    for (const block of this.chain) {
+      if (block.hash === hashToFind) {
+        return block;
+      }
+    }
+    return null;
+  }
 }
 
 export default Blockchain;
