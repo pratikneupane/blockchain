@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User.model";
-import hashPassword from "../utils/passwordhash";
+import hashPassword from "../utils/passwordHash";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {

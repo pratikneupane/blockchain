@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Admin from "../models/Admin.model";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import hashPassword from "../utils/passwordhash";
+import hashPassword from "../utils/passwordHash";
 dotenv.config();
 
 export const verifyAdmin = async (req: Request, res: Response) => {

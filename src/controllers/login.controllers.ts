@@ -1,4 +1,4 @@
-import hashPassword from "../utils/passwordhash";
+import hashPassword from "../utils/passwordHash";
 import User from "../models/User.model";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";

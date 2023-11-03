@@ -1,4 +1,4 @@
-import verifyToken from "src/middleware/auth";
+import verifyToken from "../middleware/auth";
 import { getAllBlocksController } from "../controllers/getAllBlocks.controllers";
 import { Router } from "express";
 const router = Router();

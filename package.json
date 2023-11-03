@@ -20,6 +20,7 @@
     "@types/jest": "^29.5.1",
     "@types/redis": "^4.0.11",
     "@types/request": "^2.48.8",
+    "@types/supertest": "^2.0.14",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.22",
     "typescript": "^5.0.4"
@@ -37,6 +38,7 @@
     "mongoose": "^7.2.1",
     "redis": "^4.6.6",
     "request": "^2.88.2",
+    "supertest": "^6.3.3",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0"
