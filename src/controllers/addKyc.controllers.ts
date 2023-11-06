@@ -9,18 +9,18 @@ export const addKycController = async (req: Request, res: Response) => {
     citizenshipImageUrl,
     dob,
     email,
-    firstname,
-    lastname,
-    phonenumber,
+    firstName,
+    lastName,
+    phoneNumber,
     profilePictureUrl,
     user,
   } = body;
   if (
-    !firstname ||
-    !lastname ||
+    !firstName ||
+    !lastName ||
     !dob ||
     !email ||
-    !phonenumber ||
+    !phoneNumber ||
     !address ||
     !citizenshipImageUrl ||
     !profilePictureUrl
@@ -29,11 +29,11 @@ export const addKycController = async (req: Request, res: Response) => {
   } else {
     const { id } = user;
     const hash = addNewBlockOnUserRegistration({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       dob,
       email,
-      phonenumber,
+      phoneNumber,
       address,
       citizenshipImageUrl,
       profilePictureUrl,

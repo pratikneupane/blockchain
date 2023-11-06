@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addKycController } from "../controllers/addkyc.controllers";
+import { addKycController } from "../controllers/addKyc.controllers";
 import verifyToken from "../middleware/auth";
 const router = Router();
 

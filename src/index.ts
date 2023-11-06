@@ -3,16 +3,16 @@ import express, { Request, Response } from "express";
 import PubSub from "./classes/PubSub";
 import cors from "cors";
 import request from "request";
-import loginrouter from "./routes/login.routes";
-import signuprouter from "./routes/signup.routes";
-import addKycRoute from "./routes/addkyc.routes";
-import getkycRoute from "./routes/getkyc.routes";
-import adminSignRoute from "./routes/adminSignin.routes";
+import loginRoute from "./routes/login.routes";
+import signupRoute from "./routes/signUp.routes";
+import addKycRoute from "./routes/addKyc.routes";
+import getKycRoute from "./routes/getKyc.routes";
+import adminSignInRoute from "./routes/adminSignIn.routes";
 import getAllBlocksRoute from "./routes/getAllBlocks.routes";
 import verifyBlockRoute from "./routes/verifyBlock.routes";
 import connectDB from "./utils/connectDb";
 const bodyParser = require("body-parser");
-import { registerAdmin } from "./utils/adminSignup";
+// import { registerAdmin } from "./utils/adminSignup";
 
 const app = express();
 connectDB();
@@ -28,13 +28,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const DEFAULT_PORT = 3001;
 
-app.use("/login", loginrouter);
-app.use("/signup", signuprouter);
-app.use("/addkyc", addKycRoute);
-app.use("/getkyc", getkycRoute);
-app.use("/admin/signin", adminSignRoute);
-app.use("/admin/getallblocks", getAllBlocksRoute);
-app.use('/admin/verifyblock', verifyBlockRoute);
+app.use("/login", loginRoute);
+app.use("/signup", signupRoute);
+app.use("/addKyc", addKycRoute);
+app.use("/getKyc", getKycRoute);
+app.use("/admin/signIn", adminSignInRoute);
+app.use("/admin/getAllBlocks", getAllBlocksRoute);
+app.use('/admin/verifyBlock', verifyBlockRoute);
 
 
 app.get("/api/blocks", (req: Request, res: Response) => {
@@ -42,11 +42,11 @@ app.get("/api/blocks", (req: Request, res: Response) => {
 });
 
 export type UserRegData = {
-  firstname: String;
-  lastname: String;
+  firstName: String;
+  lastName: String;
   dob: String;
   email: String;
-  phonenumber: String;
+  phoneNumber: String;
   address: String;
   citizenshipImageUrl: string;
   profilePictureUrl: string;
@@ -84,3 +84,5 @@ app.listen(PORT, () => {
   console.log(`🚀[app] http://localhost:${PORT}`);
   console.log(blockchain.chain);
 });
+
+export default app;
