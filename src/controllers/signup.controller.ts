@@ -5,15 +5,15 @@ import hashPassword from "../utils/passwordHash";
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const body = req.body;
-    const { email, password, firstname, lastname } = body;
+    const { email, password, firstName, lastName } = body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.json({ message: "user with this email already exist" }).status(400);
     } else {
         const hashedPassword = hashPassword(password);
       const newUser = new User({
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         email,
         password:hashedPassword,
       });
