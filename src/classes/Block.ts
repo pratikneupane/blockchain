@@ -61,8 +61,8 @@ class Block {
   }
 
   verifyBlock() {
-    this.verified = true;
-    return this.verified;
+    this.data.verified = true;
+    return this.data.verified;
   }
 }
 

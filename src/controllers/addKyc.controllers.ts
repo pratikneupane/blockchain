@@ -28,6 +28,7 @@ export const addKycController = async (req: Request, res: Response) => {
     return res.json({ message: "fill the form" }).status(400);
   } else {
     const { id } = user;
+    const verified = false;
     const hash = addNewBlockOnUserRegistration({
       firstName,
       lastName,
@@ -38,6 +39,7 @@ export const addKycController = async (req: Request, res: Response) => {
       citizenshipImageUrl,
       profilePictureUrl,
       id,
+      verified,
     });
     const updatedUser = await User.findOneAndUpdate(
       { _id: id },

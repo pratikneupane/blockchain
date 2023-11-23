@@ -51,6 +51,7 @@ export type UserRegData = {
   citizenshipImageUrl: string;
   profilePictureUrl: string;
   id: number;
+  verified: Boolean;
 };
 export const addNewBlockOnUserRegistration = (data: UserRegData) => {
   const hash = blockchain.addBlock(data);
