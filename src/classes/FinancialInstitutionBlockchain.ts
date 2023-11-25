@@ -5,6 +5,7 @@ import FinancialInstitutionBlock, {
 } from "./FinancialInstitutionBlock";
 import Block from "./Block";
 import { cryptoHash } from "../utils/generateHash";
+import { blockchain } from "../index";
 
 class FinancialInstitutionBlockchain {
   chain: (FinancialInstitutionBlock | Block)[];
@@ -29,7 +30,7 @@ class FinancialInstitutionBlockchain {
   addClientBlock(referenceId: string) {
     const clientBlock = Block.mineBlock({
       previousBlock: this.chain[this.chain.length - 1] as Block,
-      data: { reference: referenceId },
+      data: blockchain.findOneByHash(referenceId),
     });
 
     this.chain.push(clientBlock);

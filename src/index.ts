@@ -7,20 +7,24 @@ import loginRoute from "./routes/login.routes";
 import signupRoute from "./routes/signUp.routes";
 import addKycRoute from "./routes/addKyc.routes";
 import getKycRoute from "./routes/getKyc.routes";
+import figetKycRoute from "./routes/figetKyc.routes";
 import adminSignInRoute from "./routes/adminSignIn.routes";
 import getAllBlocksRoute from "./routes/getAllBlocks.routes";
 import getUserKycRoute from "./routes/getUserKyc.routes"
 import fiSignupRoute from "./routes/fi.signup.routes"
 import fiLoginRoute from "./routes/fi.login.routes"
+import fiDashboardRoute from "./routes/financeDashboard.routes"
 import verifyBlockRoute from "./routes/verifyBlock.routes";
 import connectDB from "./utils/connectDb";
-const bodyParser = require("body-parser");
+import FIBlockchain from "./classes/FIBlockchain";
+import bodyParser from "body-parser";
 // import { registerAdmin } from "./utils/adminSignup";
 
 const app = express();
 connectDB();
 //registerAdmin();
 export const blockchain = new Blockchain();
+export const fiBlockchain = new FIBlockchain();
 const pubsub = new PubSub(blockchain);
 
 setTimeout(() => pubsub.broadcastBlockchain(), 2000);
@@ -35,17 +39,16 @@ app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
 app.use("/fi/signup", fiSignupRoute);
 app.use("/fi/login", fiLoginRoute);
+app.use("/fi/getAllBlocks", fiDashboardRoute);
+app.use("/fi/getKyc", figetKycRoute);
+
 app.use("/addKyc", addKycRoute);
 app.use("/getKyc", getKycRoute);
+
 app.use("/admin/signIn", adminSignInRoute);
 app.use("/admin/getAllBlocks", getAllBlocksRoute);
 app.use("/admin/getUserKyc", getUserKycRoute); 
 app.use('/admin/verifyBlock', verifyBlockRoute);
-
-
-app.get("/api/blocks", (req: Request, res: Response) => {
-  res.json(blockchain.chain);
-});
 
 export type UserRegData = {
   firstName: String;

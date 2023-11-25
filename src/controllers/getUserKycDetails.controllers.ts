@@ -4,8 +4,6 @@ import User from "../models/User.model";
 
 export const getUserKycController = async (req: Request, res: Response) => {
   const { id } = req.body;
-  console.log(id)
-  console.log(req.body)
   let block;
   if (id) {
     try {

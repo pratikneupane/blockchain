@@ -4,7 +4,9 @@ import { Request, Response } from "express";
 import FinancialInstitutionBlockchain from "../classes/FinancialInstitutionBlockchain";
 import hashPassword from "../utils/passwordHash";
 import FI from "../models/FI.model";
+import { fiBlockchain } from "../index";
 
+export let newInstitutionBlockchain: FinancialInstitutionBlockchain;
 export const registerFinancialInstitution = async (
   req: Request,
   res: Response
@@ -29,9 +31,11 @@ export const registerFinancialInstitution = async (
       };
       const newUser = new FI(genesisBlockDetails);
       newUser.save();
-      const newInstitutionBlockchain = new FinancialInstitutionBlockchain(
+      newInstitutionBlockchain = new FinancialInstitutionBlockchain(
         genesisBlockDetails
       );
+      fiBlockchain.addInstitution(newInstitutionBlockchain);
+      fiBlockchain.saveAllBlockchainsToFile();
       return res
         .json({ message: "success", newInstitutionBlockchain })
         .status(200);
