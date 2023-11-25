@@ -60,9 +60,8 @@ class Block {
     });
   }
 
-  verifyBlock() {
+  verify(): void {
     this.data.verified = true;
-    return this.data.verified;
   }
 }
 
