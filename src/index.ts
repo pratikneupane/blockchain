@@ -11,6 +11,7 @@ import adminSignInRoute from "./routes/adminSignIn.routes";
 import getAllBlocksRoute from "./routes/getAllBlocks.routes";
 import getUserKycRoute from "./routes/getUserKyc.routes"
 import fiSignupRoute from "./routes/fi.signup.routes"
+import fiLoginRoute from "./routes/fi.login.routes"
 import verifyBlockRoute from "./routes/verifyBlock.routes";
 import connectDB from "./utils/connectDb";
 const bodyParser = require("body-parser");
@@ -33,11 +34,12 @@ const DEFAULT_PORT = 3001;
 app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
 app.use("/fi/signup", fiSignupRoute);
+app.use("/fi/login", fiLoginRoute);
 app.use("/addKyc", addKycRoute);
 app.use("/getKyc", getKycRoute);
 app.use("/admin/signIn", adminSignInRoute);
 app.use("/admin/getAllBlocks", getAllBlocksRoute);
-app.use("/admin/getUserKyc", getUserKycRoute);
+app.use("/admin/getUserKyc", getUserKycRoute); 
 app.use('/admin/verifyBlock', verifyBlockRoute);
 
 
