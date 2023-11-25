@@ -1,10 +1,13 @@
+import * as fs from "fs";
 import Block from "./Block";
 import { cryptoHash } from "../utils/generateHash";
 
 class Blockchain {
   chain: Block[];
+
   constructor() {
     this.chain = [Block.genesis()];
+    this.loadBlockchainFromFile("blockchain.json"); // Load blockchain from file by default
   }
 
   addBlock(data: any) {
@@ -19,14 +22,14 @@ class Blockchain {
   replaceChain(chain: Block[]) {
     if (chain.length <= this.chain.length) {
       console.log("Received chain is not longer than the current chain.");
-      return;
     } else if (!Blockchain.isValidChain(chain)) {
       console.log("Received chain is invalid.");
-      return;
     } else {
       console.log("Replacing Chain with", chain);
       this.chain = chain;
     }
+    this.saveBlockchainToFile("blockchain.json");
+    return;
   }
 
   static isValidChain(chain: Block[]) {
@@ -55,13 +58,41 @@ class Blockchain {
     return true;
   }
 
-  findOneByHash(hashToFind: String) {
+  findOneByHash(hashToFind: string) {
     for (const block of this.chain) {
       if (block.hash === hashToFind) {
         return block;
       }
     }
     return null;
+  }
+
+  saveBlockchainToFile(fileName: string) {
+    console.log("Saving blockchain to file...");
+    try {
+      const blockchainData = JSON.stringify(this.chain, null, 2);
+      fs.writeFileSync(fileName, blockchainData, "utf-8");
+      console.log(`Blockchain saved to ${fileName}`);
+    } catch (error) {
+      console.error(`Error saving blockchain to ${fileName}: ${error}`);
+    }
+  }
+
+  loadBlockchainFromFile(fileName: string) {
+    console.log("hi");
+    try {
+      const fileContent = fs.readFileSync(fileName, "utf-8");
+      const loadedChain = JSON.parse(fileContent);
+
+      if (Blockchain.isValidChain(loadedChain)) {
+        this.chain = loadedChain;
+        console.log(`Blockchain loaded from ${fileName}`);
+      } else {
+        console.log("Loaded chain is invalid. Keeping the current chain.");
+      }
+    } catch (error) {
+      console.error(`Error loading blockchain from ${fileName}: ${error}`);
+    }
   }
 }
 
