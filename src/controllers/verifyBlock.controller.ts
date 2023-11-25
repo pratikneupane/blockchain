@@ -22,7 +22,7 @@ export const verifyBlock = async (req: Request, res: Response) => {
   }
   if(block) {
     block.data.verified = true;
-    res.status(200).json({ message: "verified" });
+    res.status(200).json({ data: block.data });
   } else {
     res.status(404).json({ message: "Block not found" });
   }
