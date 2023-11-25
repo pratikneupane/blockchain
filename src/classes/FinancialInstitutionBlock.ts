@@ -1,29 +1,37 @@
-// FinancialInstitutionBlock.ts
-
 import { cryptoHash } from "../utils/generateHash";
 
-type FinancialInstitutionBlockData = {
-  institutionDetails: string;
+export interface BlockData {
+  reference: string;
 };
 
-type FinancialInstitutionBlockConstructorArgs = {
+export interface InstitutionDetails {
+  name: string;
+  registrationNumber: string;
+  email: string;
+  password: string;
+  profilePictureUrl: string;
+}
+
+export type FinancialInstitutionBlockData = BlockData | InstitutionDetails;
+
+type BlockConstructorArgs = {
   timestamp: string | number | Date;
   previousHash: string;
   hash: string;
-  data: FinancialInstitutionBlockData;
+  data: BlockData | InstitutionDetails;
   nonce: number;
   difficulty: number;
 };
 
-class FinancialInstitutionBlock {
+class Block {
   timestamp: string | number | Date;
   previousHash: string;
   hash: string;
-  data: FinancialInstitutionBlockData;
+  data: BlockData | InstitutionDetails;
   nonce: number;
   difficulty: number;
 
-  constructor(args: FinancialInstitutionBlockConstructorArgs) {
+  constructor(args: BlockConstructorArgs) {
     const { timestamp, previousHash, hash, data, nonce, difficulty } = args;
     this.timestamp = timestamp;
     this.previousHash = previousHash;
@@ -33,18 +41,24 @@ class FinancialInstitutionBlock {
     this.difficulty = difficulty;
   }
 
-  static genesis(institutionDetails: string) {
+  static genesis(details: InstitutionDetails) {
     const timestamp = Date.now();
     const previousHash = "0".repeat(64);
     const nonce = 0;
     const difficulty = 3;
-    const hash = cryptoHash(timestamp, previousHash, nonce, difficulty, institutionDetails);
+    const hash = cryptoHash(
+      timestamp,
+      previousHash,
+      nonce,
+      difficulty,
+      details
+    );
 
     return new this({
       timestamp,
       previousHash,
       hash,
-      data: { institutionDetails },
+      data: details,
       nonce,
       difficulty,
     });
@@ -54,8 +68,8 @@ class FinancialInstitutionBlock {
     previousBlock,
     data,
   }: {
-    previousBlock: FinancialInstitutionBlock;
-    data: FinancialInstitutionBlockData;
+    previousBlock: Block;
+    data: BlockData;
   }) {
     let hash, timestamp;
     const previousHash = previousBlock.hash;
@@ -64,7 +78,13 @@ class FinancialInstitutionBlock {
     do {
       nonce++;
       timestamp = Date.now();
-      hash = cryptoHash(timestamp, previousHash, nonce, difficulty, data.institutionDetails);
+      hash = cryptoHash(
+        timestamp,
+        previousHash,
+        nonce,
+        difficulty,
+        data.reference
+      );
     } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
 
     return new this({
@@ -76,6 +96,20 @@ class FinancialInstitutionBlock {
       difficulty,
     });
   }
+
+  static isFinancialInstitutionBlock(block: Block): block is Block {
+    return (
+      (block as Block).data.hasOwnProperty("name") &&
+      (block as Block).data.hasOwnProperty("registrationNumber") &&
+      (block as Block).data.hasOwnProperty("email") &&
+      (block as Block).data.hasOwnProperty("password") &&
+      (block as Block).data.hasOwnProperty("profilePictureUrl")
+    );
+  }
+
+  static isBlock(block: Block): block is Block {
+    return (block as Block).data.hasOwnProperty("reference");
+  }
 }
 
-export default FinancialInstitutionBlock;
+export default Block;
