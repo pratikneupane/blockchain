@@ -3,7 +3,7 @@
 import { Request, Response } from "express";
 import FinancialInstitutionBlockchain from "../classes/FinancialInstitutionBlockchain";
 import hashPassword from "../utils/passwordHash";
-import FI from "src/models/FI.model";
+import FI from "../models/FI.model";
 
 export const registerFinancialInstitution = async (
   req: Request,
