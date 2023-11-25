@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": 1700908073679,
+    "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hash": "a199394800000000f942796c00000000fbdc563d0000000092ec174a00000000e011f751000000000f3b4c9a000000008b49cc1f00000000031e345b00000000",
+    "data": {
+      "name": "Global",
+      "email": "global@gmail.com",
+      "password": "3c6ac5d000000000bd58495e00000000c2ebe3cf000000002d6a6fa100000000ec84a350000000009934dd9a000000005c81401f000000007cb8075b00000000",
+      "profilePictureUrl": "https://firebasestorage.googleapis.com/v0/b/ekyc-store.appspot.com/o/ekyc-pictures%2FSANY3389.JPG?alt=media&token=a15a6c98-cf6e-4019-903e-4ce04583ba49"
+    },
+    "nonce": 0,
+    "difficulty": 3
+  }
+]

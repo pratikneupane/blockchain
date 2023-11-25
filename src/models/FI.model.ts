@@ -15,7 +15,7 @@ const fiSchema = new mongoose.Schema({
   },
   registrationNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   profilePictureUrl: {
     type: String,
